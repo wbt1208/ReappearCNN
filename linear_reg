@@ -1,0 +1,26 @@
+import numpy as np
+from matplotlib import pyplot as plt
+train_x = np.linspace(0,10)
+train_y = train_x * 3 + 6
+
+plt.plot(train_x, train_y, "*")
+w = np.ones(shape = (1,))
+b = np.zeros(shape = (1,))
+
+
+for i in range(1000):
+    # 正向传播
+    predict_y = train_x * w + b
+    # loss = 1/2np.power(train_y - predict_y)
+    # 构造损失函数
+    loss = 1/2 * np.mean(np.power((train_y - predict_y), 2))
+    # 反向传播
+    delta_w = np.mean((predict_y - train_y) * train_x)
+    delta_b = np.mean((predict_y - train_y))
+    #更新参数
+    w = w - 0.01 * delta_w
+    b = b - 0.01 * delta_b
+
+plt.plot(train_x, predict_y)
+plt.show()
+print("w =", w, "b =", b)
